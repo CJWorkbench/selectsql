@@ -12,7 +12,7 @@
       "id_name" : "sql",
       "type": "string",
       "multiline": "True",
-      "default": "",
+      "default": "SELECT * FROM input",
       "placeholder":"SELECT * FROM input"
     },
     {
