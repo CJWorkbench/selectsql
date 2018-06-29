@@ -1,0 +1,19 @@
+{
+  "name": "Select SQL",
+  "id_name": "selectsql",
+  "category" : "Analyze",
+  "icon" : "database",
+  "description" : "Run an SQL SELECT statement on the input table",
+  "loads_data": false,
+  "help_url": "modules/analyze/sql-select",
+  "parameters": [
+    {
+      "name": "SQL",
+      "id_name" : "sql",
+      "type": "string",
+      "multiline": "True",
+      "default": "",
+      "placeholder":"SELECT * FROM input"
+    }
+  ]
+}

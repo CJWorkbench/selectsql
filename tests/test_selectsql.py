@@ -1,0 +1,38 @@
+from pandas import DataFrame
+from selectsql import render
+import unittest
+
+class TestSqlselect(unittest.TestCase):
+    def test_happy_path(self):
+        df = DataFrame({'foo': [1, 2, 3], 'bar': [2, 3, 4]})
+        result = render(df, {'sql': 'SELECT foo + bar AS baz FROM input'})
+        expected = (DataFrame({'baz': [3, 5, 7]}), '')
+
+        self.assertEqual(result[1], expected[1])
+        self.assertTrue(result[0].equals(expected[0]))
+
+    def test_empty_sql(self):
+        df = DataFrame({'foo': [1, 2, 3]})
+        result = render(df, {'sql': ''})
+        self.assertIsNone(result[0])
+        self.assertEqual(result[1], 'Missing SQL SELECT statement')
+
+    def test_invalid_sql_syntax(self):
+        df = DataFrame({'foo': [1, 2, 3]})
+        result = render(df, {'sql': 'This is not SQL'})
+        self.assertIsNone(result[0])
+        self.assertEqual(result[1], 'SQL error near "This": syntax error')
+
+    def test_hint_invalid_table_name(self):
+        df = DataFrame({'foo': [1, 2, 3]})
+        result = render(df, {'sql': 'SELECT * FROM input2'})
+        self.assertIsNone(result[0])
+        self.assertEqual(
+            result[1],
+            ('SQL error: no such table: input2'
+             '\n\nThe only valid table name is "input"')
+        )
+
+
+if __name__ == '__main__':
+    unittest.main()
