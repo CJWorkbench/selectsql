@@ -8,7 +8,7 @@
   "help_url": "modules/analyze/sql-select",
   "parameters": [
     {
-      "name": "SQL",
+      "name": "",
       "id_name" : "sql",
       "type": "string",
       "multiline": "True",
