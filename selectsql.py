@@ -3,10 +3,13 @@ import pandas
 from pandas.io.sql import DatabaseError
 
 def sqlselect(table, sql):
+    if len(table.columns) == 0:
+        return (pandas.DataFrame(), '')
+
     with sqlite3.connect(':memory:') as conn:
-        table.to_sql('input', conn)
+        table.to_sql('input', conn, index=False)
         try:
-            return (pandas.read_sql_query(sql, conn), '')
+            dataframe = pandas.read_sql_query(sql, conn)
         except DatabaseError as err:
             message = str(err)
 
@@ -22,6 +25,8 @@ def sqlselect(table, sql):
                 message += '\n\nThe only valid table name is "input"'
 
             return (None, message)
+
+        return (dataframe, '')
 
 
 def render(table, params):

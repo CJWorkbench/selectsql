@@ -1,6 +1,7 @@
-from pandas import DataFrame
-from selectsql import render
 import unittest
+from pandas import DataFrame
+from pandas.testing import assert_frame_equal
+from selectsql import render
 
 class TestSqlselect(unittest.TestCase):
     def test_happy_path(self):
@@ -32,6 +33,11 @@ class TestSqlselect(unittest.TestCase):
             ('SQL error: no such table: input2'
              '\n\nThe only valid table name is "input"')
         )
+
+    def test_empty_input(self):
+        df = DataFrame()
+        result = render(df, {'sql': 'SELECT * FROM input'})
+        assert_frame_equal(result[0], DataFrame())
 
 
 if __name__ == '__main__':
