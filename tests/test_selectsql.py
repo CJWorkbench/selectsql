@@ -3,6 +3,7 @@ from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 from selectsql import render
 
+
 class TestSqlselect(unittest.TestCase):
     def test_happy_path(self):
         df = DataFrame({'foo': [1, 2, 3], 'bar': [2, 3, 4]})
