@@ -2,7 +2,7 @@ id_name: selectsql
 name: Select SQL
 category: Analyze
 icon: database
-description: "Run an SQL SELECT statement on the input table",
+description: "Run an SQL SELECT statement on the input table"
 help_url: modules/analyze/sql-select
 parameters:
 - id_name: sql
