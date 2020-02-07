@@ -1,6 +1,7 @@
 import sqlite3
 import pandas
 from pandas.io.sql import DatabaseError
+from cjwmodule import i18n
 
 
 def sqlselect(table, sql):
@@ -22,10 +23,15 @@ def sqlselect(table, sql):
             if message.startswith("SQL error: near "):
                 message = message.replace("SQL error: near ", "SQL error near ", 1)
 
+            messages = [message]
             if "no such table: " in message:
-                message += '\n\nThe only valid table name is "input"'
+                messages.append(i18n.trans(
+                    "badValue.sql.invalidTableName",
+                    'The only valid table name is "{table_name}"',
+                    {"table_name": "input"}
+                ))
 
-            return (None, message)
+            return (None, messages)
 
         return (dataframe, "")
 
@@ -33,7 +39,10 @@ def sqlselect(table, sql):
 def render(table, params):
     sql = params["sql"]
     if not sql.strip():
-        return (None, "Missing SQL SELECT statement")
+        return (None, i18n.trans(
+            "badParam.sql.missing",
+            "Missing SQL SELECT statement"
+        ))
 
     return sqlselect(table, sql)
 

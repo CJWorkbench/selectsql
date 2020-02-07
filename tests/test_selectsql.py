@@ -2,6 +2,7 @@ import unittest
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 from selectsql import migrate_params, render
+from cjwmodule.testing.i18n import i18n_message
 
 
 class MigrateParamsTest(unittest.TestCase):
@@ -31,13 +32,13 @@ class RenderTest(unittest.TestCase):
         df = DataFrame({"foo": [1, 2, 3]})
         result = render(df, {"sql": ""})
         self.assertIsNone(result[0])
-        self.assertEqual(result[1], "Missing SQL SELECT statement")
+        self.assertEqual(result[1], i18n_message("badParam.sql.missing"))
 
     def test_invalid_sql_syntax(self):
         df = DataFrame({"foo": [1, 2, 3]})
         result = render(df, {"sql": "This is not SQL"})
         self.assertIsNone(result[0])
-        self.assertEqual(result[1], 'SQL error near "This": syntax error')
+        self.assertEqual(result[1], ['SQL error near "This": syntax error'])
 
     def test_hint_invalid_table_name(self):
         df = DataFrame({"foo": [1, 2, 3]})
@@ -45,10 +46,13 @@ class RenderTest(unittest.TestCase):
         self.assertIsNone(result[0])
         self.assertEqual(
             result[1],
-            (
-                "SQL error: no such table: input2"
-                '\n\nThe only valid table name is "input"'
-            ),
+            [
+                "SQL error: no such table: input2",
+                i18n_message(
+                    "badValue.sql.invalidTableName",
+                    {"table_name": "input"}
+                )
+            ],
         )
 
     def test_empty_input(self):

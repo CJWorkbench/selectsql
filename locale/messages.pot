@@ -1,0 +1,26 @@
+#. default-message: Select SQL
+msgid "_spec.name"
+msgstr ""
+
+#. default-message: Run an SQL SELECT statement on the input table
+msgid "_spec.description"
+msgstr ""
+
+#. default-message: SELECT * FROM input
+msgid "_spec.parameters.sql.placeholder"
+msgstr ""
+
+#. default-message: SELECT * FROM input
+msgid "_spec.parameters.sql.default"
+msgstr ""
+
+#. default-message: The only valid table name is "{table_name}"
+#: selectsql.py:28
+msgid "badValue.sql.invalidTableName"
+msgstr ""
+
+#. default-message: Missing SQL SELECT statement
+#: selectsql.py:42
+msgid "badParam.sql.missing"
+msgstr ""
+
