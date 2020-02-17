@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 pandas = "~=0.25.0"
-cjwmodule = "*"
+cjwmodule = ">=1.4.0"
 
 [dev-packages]
 

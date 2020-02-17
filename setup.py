@@ -11,5 +11,5 @@ setup(
     url="https://github.com/CJWorkbench/selectsql",
     packages=[""],
     py_modules=["selectsql"],
-    install_requires=["pandas==0.25.0", "cjwmodule==*"],
+    install_requires=["pandas==0.25.0", "cjwmodule>=1.4.0"],
 )
