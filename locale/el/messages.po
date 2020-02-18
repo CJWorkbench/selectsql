@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-07 20:56+0000\n"
+"POT-Creation-Date: 2020-02-18 16:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: el\n"
@@ -20,16 +20,16 @@ msgstr ""
 "Generated-By: Babel 2.8.0\n"
 
 msgid "_spec.name"
-msgstr ""
+msgstr "SQL SELECT"
 
 msgid "_spec.description"
-msgstr ""
+msgstr "Εκτέλεση της εντολής SQL SELECT στον πίνακα εισόδου"
 
 msgid "_spec.parameters.sql.placeholder"
-msgstr ""
+msgstr "SELECT * FROM input"
 
 msgid "_spec.parameters.sql.default"
-msgstr ""
+msgstr "SELECT * FROM input"
 
 #: selectsql.py:28
 msgid "badValue.sql.invalidTableName"
