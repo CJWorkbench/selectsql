@@ -33,9 +33,9 @@ msgstr "SELECT * FROM input"
 
 #: selectsql.py:28
 msgid "badValue.sql.invalidTableName"
-msgstr ""
+msgstr "Το μόνο έγκυρο όνομα πίνακα είναι \"{table_name}\""
 
 #: selectsql.py:42
 msgid "badParam.sql.missing"
-msgstr ""
+msgstr "Λείπει η δήλωση SQL SELECT"
 
