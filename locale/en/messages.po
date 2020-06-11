@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-07 20:56+0000\n"
+"POT-Creation-Date: 2020-06-11 20:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -31,11 +31,17 @@ msgstr "SELECT * FROM input"
 msgid "_spec.parameters.sql.default"
 msgstr "SELECT * FROM input"
 
-#: selectsql.py:28
+#: selectsql.py:29
 msgid "badValue.sql.invalidTableName"
 msgstr "The only valid table name is \"{table_name}\""
 
-#: selectsql.py:42
+#: selectsql.py:43
+msgid "badValue.sql.duplicateColumnName"
+msgstr ""
+"You selected two columns named \"{column_name}\". Please delete one or "
+"alias it with \"AS\"."
+
+#: selectsql.py:59
 msgid "badParam.sql.missing"
 msgstr "Missing SQL SELECT statement"
 

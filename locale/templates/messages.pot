@@ -15,12 +15,17 @@ msgid "_spec.parameters.sql.default"
 msgstr ""
 
 #. default-message: The only valid table name is "{table_name}"
-#: selectsql.py:28
+#: selectsql.py:29
 msgid "badValue.sql.invalidTableName"
 msgstr ""
 
+#. default-message: You selected two columns named "{column_name}". Please delete one or alias it with "AS".
+#: selectsql.py:43
+msgid "badValue.sql.duplicateColumnName"
+msgstr ""
+
 #. default-message: Missing SQL SELECT statement
-#: selectsql.py:42
+#: selectsql.py:59
 msgid "badParam.sql.missing"
 msgstr ""
 
