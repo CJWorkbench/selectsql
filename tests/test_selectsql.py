@@ -48,10 +48,7 @@ class RenderTest(unittest.TestCase):
             result[1],
             [
                 "SQL error: no such table: input2",
-                i18n_message(
-                    "badValue.sql.invalidTableName",
-                    {"table_name": "input"}
-                )
+                i18n_message("badValue.sql.invalidTableName", {"table_name": "input"}),
             ],
         )
 
@@ -59,6 +56,15 @@ class RenderTest(unittest.TestCase):
         df = DataFrame()
         result = render(df, {"sql": "SELECT * FROM input"})
         assert_frame_equal(result[0], DataFrame())
+
+    def test_duplicate_column_name(self):
+        df = DataFrame({"A": [1, 2, 3]})
+        result = render(df, {"sql": "SELECT A, A FROM input"})
+        self.assertIsNone(result[0])
+        self.assertEqual(
+            result[1],
+            [i18n_message("badValue.sql.duplicateColumnName", {"column_name": "A"}),],
+        )
 
 
 if __name__ == "__main__":

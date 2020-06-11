@@ -25,13 +25,28 @@ def sqlselect(table, sql):
 
             messages = [message]
             if "no such table: " in message:
-                messages.append(i18n.trans(
-                    "badValue.sql.invalidTableName",
-                    'The only valid table name is "{table_name}"',
-                    {"table_name": "input"}
-                ))
+                messages.append(
+                    i18n.trans(
+                        "badValue.sql.invalidTableName",
+                        'The only valid table name is "{table_name}"',
+                        {"table_name": "input"},
+                    )
+                )
 
             return (None, messages)
+
+        duplicated = dataframe.columns[dataframe.columns.duplicated()]
+        if len(duplicated):
+            return (
+                None,
+                [
+                    i18n.trans(
+                        "badValue.sql.duplicateColumnName",
+                        'You selected two columns named "{column_name}". Please delete one or alias it with "AS".',
+                        {"column_name": duplicated[0]},
+                    )
+                ],
+            )
 
         return (dataframe, "")
 
@@ -39,10 +54,10 @@ def sqlselect(table, sql):
 def render(table, params):
     sql = params["sql"]
     if not sql.strip():
-        return (None, i18n.trans(
-            "badParam.sql.missing",
-            "Missing SQL SELECT statement"
-        ))
+        return (
+            None,
+            i18n.trans("badParam.sql.missing", "Missing SQL SELECT statement"),
+        )
 
     return sqlselect(table, sql)
 
