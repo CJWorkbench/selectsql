@@ -1,54 +1,83 @@
+import contextlib
 import sqlite3
-import pandas
-from pandas.io.sql import DatabaseError
+from typing import List, Union
+import pandas as pd
 from cjwmodule import i18n
 
 
-def sqlselect(table, sql):
-    if len(table.columns) == 0:
-        return (pandas.DataFrame(), "")
+def _database_error_to_messages(
+    err: sqlite3.DatabaseError,
+) -> List[Union[i18n.I18nMessage, str]]:
+    if isinstance(err, sqlite3.OperationalError) and err.args[0].startswith(
+        "no such table: "
+    ):
+        return [
+            i18n.trans(
+                "badValue.sql.invalidTableName",
+                'The only valid table name is "{table_name}"',
+                {"table_name": "input"},
+            )
+        ]
 
-    with sqlite3.connect(":memory:") as conn:
+    if err.args[0].startswith("near "):
+        return [f"SQL error {str(err)}"]  # it's English anyway
+
+    return [str(err)]  # it's English anyway
+
+
+@contextlib.contextmanager
+def _deleting_cursor(c):
+    try:
+        yield c
+    finally:
+        c.close()
+
+
+def sqlselect(table: pd.DataFrame, sql):
+    if len(table.columns) == 0:
+        return (pd.DataFrame(), "")
+
+    with sqlite3.connect(":memory:", detect_types=sqlite3.PARSE_DECLTYPES) as conn:
         table.to_sql("input", conn, index=False)
 
-        try:
-            dataframe = pandas.read_sql_query(sql, conn)
-        except DatabaseError as err:
-            message = str(err)
+        with _deleting_cursor(conn.cursor()) as c:
+            try:
+                c.execute(sql)
+            except sqlite3.DatabaseError as err:
+                return None, _database_error_to_messages(err)
 
-            expect_start = f"Execution failed on sql '{sql}': "
-            if message.startswith(expect_start):
-                message = message.replace(expect_start, "SQL error: ", 1)
-
-            if message.startswith("SQL error: near "):
-                message = message.replace("SQL error: near ", "SQL error near ", 1)
-
-            messages = [message]
-            if "no such table: " in message:
-                messages.append(
-                    i18n.trans(
-                        "badValue.sql.invalidTableName",
-                        'The only valid table name is "{table_name}"',
-                        {"table_name": "input"},
-                    )
+            if c.description is None:
+                return (
+                    None,
+                    [
+                        i18n.trans(
+                            "badValue.sql.commentedQuery",
+                            "Your query did nothing. Did you accidentally comment it out?",
+                        )
+                    ],
                 )
 
-            return (None, messages)
+            colnames = [d[0] for d in c.description]
 
-        duplicated = dataframe.columns[dataframe.columns.duplicated()]
-        if len(duplicated):
-            return (
-                None,
-                [
-                    i18n.trans(
-                        "badValue.sql.duplicateColumnName",
-                        'You selected two columns named "{column_name}". Please delete one or alias it with "AS".',
-                        {"column_name": duplicated[0]},
+            dupdetect = set()
+            for colname in colnames:
+                if colname in dupdetect:
+                    return (
+                        None,
+                        [
+                            i18n.trans(
+                                "badValue.sql.duplicateColumnName",
+                                'Your query would produce two columns named {colname}. Please delete one or alias it with "AS".',
+                                {"colname": colname},
+                            )
+                        ],
                     )
-                ],
-            )
+                dupdetect.add(colname)
 
-        return (dataframe, "")
+            # Memory-inefficient: creates a Python object per value
+            data = c.fetchall()  # TODO benchmark c.arraysize=1000, =100000, etc.
+
+    return pd.DataFrame.from_records(data, columns=colnames), []
 
 
 def render(table, params):
@@ -56,7 +85,7 @@ def render(table, params):
     if not sql.strip():
         return (
             None,
-            i18n.trans("badParam.sql.missing", "Missing SQL SELECT statement"),
+            [i18n.trans("badParam.sql.missing", "Missing SQL SELECT statement")],
         )
 
     return sqlselect(table, sql)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-11 20:47+0000\n"
+"POT-Creation-Date: 2020-06-17 19:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: el\n"
@@ -31,15 +31,19 @@ msgstr "SELECT * FROM input"
 msgid "_spec.parameters.sql.default"
 msgstr "SELECT * FROM input"
 
-#: selectsql.py:29
+#: selectsql.py:15
 msgid "badValue.sql.invalidTableName"
 msgstr "Το μόνο έγκυρο όνομα πίνακα είναι \"{table_name}\""
 
-#: selectsql.py:43
+#: selectsql.py:53
+msgid "badValue.sql.commentedQuery"
+msgstr ""
+
+#: selectsql.py:68
 msgid "badValue.sql.duplicateColumnName"
 msgstr ""
 
-#: selectsql.py:59
+#: selectsql.py:88
 msgid "badParam.sql.missing"
 msgstr "Λείπει η δήλωση SQL SELECT"
 

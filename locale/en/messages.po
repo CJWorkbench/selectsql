@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-11 20:47+0000\n"
+"POT-Creation-Date: 2020-06-17 19:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -31,17 +31,21 @@ msgstr "SELECT * FROM input"
 msgid "_spec.parameters.sql.default"
 msgstr "SELECT * FROM input"
 
-#: selectsql.py:29
+#: selectsql.py:15
 msgid "badValue.sql.invalidTableName"
 msgstr "The only valid table name is \"{table_name}\""
 
-#: selectsql.py:43
+#: selectsql.py:53
+msgid "badValue.sql.commentedQuery"
+msgstr "Your query did nothing. Did you accidentally comment it out?"
+
+#: selectsql.py:68
 msgid "badValue.sql.duplicateColumnName"
 msgstr ""
-"You selected two columns named \"{column_name}\". Please delete one or "
-"alias it with \"AS\"."
+"Your query would produce two columns named {colname}. Please delete one "
+"or alias it with \"AS\"."
 
-#: selectsql.py:59
+#: selectsql.py:88
 msgid "badParam.sql.missing"
 msgstr "Missing SQL SELECT statement"
 
