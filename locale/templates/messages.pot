@@ -7,10 +7,6 @@ msgid "_spec.description"
 msgstr ""
 
 #. default-message: SELECT * FROM input
-msgid "_spec.parameters.sql.placeholder"
-msgstr ""
-
-#. default-message: SELECT * FROM input
 msgid "_spec.parameters.sql.default"
 msgstr ""
 

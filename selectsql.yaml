@@ -9,5 +9,5 @@ parameters:
   name: ''
   type: string
   multiline: true
+  syntax: sql
   default: 'SELECT * FROM input'
-  placeholder: 'SELECT * FROM input'
