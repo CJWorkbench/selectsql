@@ -36,7 +36,7 @@ def _deleting_cursor(c):
 
 def sqlselect(table: pd.DataFrame, sql):
     if len(table.columns) == 0:
-        return (pd.DataFrame(), "")
+        return (pd.DataFrame(), [])
 
     with sqlite3.connect(":memory:", detect_types=sqlite3.PARSE_DECLTYPES) as conn:
         table.to_sql("input", conn, index=False)
@@ -93,8 +93,7 @@ def render(table, params):
 
 
 def _migrate_params_v0_to_v1(params):
-    """
-    v0 had an empty 'run' param (it was a value generated from a button).
+    """v0 had an empty 'run' param (it was a value generated from a button).
 
     v1 has no 'run' param.
     """
