@@ -1,9 +1,11 @@
 import datetime
 import unittest
+
+from cjwmodule.testing.i18n import i18n_message
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
+
 from selectsql import migrate_params, render
-from cjwmodule.testing.i18n import i18n_message
 
 
 class MigrateParamsTest(unittest.TestCase):
@@ -81,7 +83,9 @@ class RenderTest(unittest.TestCase):
         self.assertIsNone(result[0])
         self.assertEqual(
             result[1],
-            [i18n_message("badValue.sql.duplicateColumnName", {"colname": "A"}),],
+            [
+                i18n_message("badValue.sql.duplicateColumnName", {"colname": "A"}),
+            ],
         )
 
 

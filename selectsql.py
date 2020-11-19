@@ -1,6 +1,7 @@
 import contextlib
 import sqlite3
 from typing import List, Union
+
 import pandas as pd
 from cjwmodule import i18n
 
