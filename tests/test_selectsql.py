@@ -87,3 +87,9 @@ def test_render_duplicate_column_name():
             i18n_message("badValue.sql.duplicateColumnName", {"colname": "A"}),
         ],
     )
+
+
+def test_two_statements_in_one():
+    df = DataFrame({"A": [1, 2, 3]})
+    result = render(df, {"sql": "SELECT A FROM input; SELECT A FROM input"})
+    assert result == (None, [i18n_message("badValue.sql.tooManyCommands")])

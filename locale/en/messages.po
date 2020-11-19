@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-27 19:10+0000\n"
+"POT-Creation-Date: 2020-11-19 19:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.0\n"
 
 msgid "_spec.name"
 msgstr "Select SQL"
@@ -28,21 +28,25 @@ msgstr "Run an SQL SELECT statement on the input table"
 msgid "_spec.parameters.sql.default"
 msgstr "SELECT * FROM input"
 
-#: selectsql.py:15
+#: selectsql.py:16
 msgid "badValue.sql.invalidTableName"
 msgstr "The only valid table name is \"{table_name}\""
 
-#: selectsql.py:53
+#: selectsql.py:32
+msgid "badValue.sql.tooManyCommands"
+msgstr "Only one query is allowed. Please remove the semicolon (;)."
+
+#: selectsql.py:68
 msgid "badValue.sql.commentedQuery"
 msgstr "Your query did nothing. Did you accidentally comment it out?"
 
-#: selectsql.py:68
+#: selectsql.py:83
 msgid "badValue.sql.duplicateColumnName"
 msgstr ""
 "Your query would produce two columns named {colname}. Please delete one "
 "or alias it with \"AS\"."
 
-#: selectsql.py:88
+#: selectsql.py:103
 msgid "badParam.sql.missing"
 msgstr "Missing SQL SELECT statement"
 

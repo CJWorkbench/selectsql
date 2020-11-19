@@ -21,9 +21,21 @@ def _database_error_to_messages(
         ]
 
     if err.args[0].startswith("near "):
-        return [f"SQL error {str(err)}"]  # it's English anyway
+        return [f"SQL error {str(err)}"]  # it's English
 
-    return [str(err)]  # it's English anyway
+    return [str(err)]  # it's English
+
+
+def _database_warning_to_messages(err: sqlite3.Warning) -> List[i18n.I18nMessage]:
+    if err.args[0] == "You can only execute one statement at a time.":
+        return [
+            i18n.trans(
+                "badValue.sql.tooManyCommands",
+                "Only one query is allowed. Please remove the semicolon (;).",
+            )
+        ]
+
+    return [str(err)]  # it's English
 
 
 @contextlib.contextmanager
@@ -46,6 +58,8 @@ def sqlselect(table: pd.DataFrame, sql):
                 c.execute(sql)
             except sqlite3.DatabaseError as err:
                 return None, _database_error_to_messages(err)
+            except sqlite3.Warning as err:
+                return None, _database_warning_to_messages(err)
 
             if c.description is None:
                 return (

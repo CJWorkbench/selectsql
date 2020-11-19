@@ -11,22 +11,27 @@ msgid "_spec.parameters.sql.default"
 msgstr ""
 
 #. default-message: The only valid table name is "{table_name}"
-#: selectsql.py:15
+#: selectsql.py:16
 msgid "badValue.sql.invalidTableName"
 msgstr ""
 
+#. default-message: Only one query is allowed. Please remove the semicolon (;).
+#: selectsql.py:32
+msgid "badValue.sql.tooManyCommands"
+msgstr ""
+
 #. default-message: Your query did nothing. Did you accidentally comment it out?
-#: selectsql.py:53
+#: selectsql.py:68
 msgid "badValue.sql.commentedQuery"
 msgstr ""
 
 #. default-message: Your query would produce two columns named {colname}. Please delete one or alias it with "AS".
-#: selectsql.py:68
+#: selectsql.py:83
 msgid "badValue.sql.duplicateColumnName"
 msgstr ""
 
 #. default-message: Missing SQL SELECT statement
-#: selectsql.py:88
+#: selectsql.py:103
 msgid "badParam.sql.missing"
 msgstr ""
 
